@@ -1,10 +1,31 @@
 import express from 'express'
 import mongoose from 'mongoose';
 import Ticket from './models/ticketmodel.js'
+import path from 'path'
+import { fileURLToPath } from 'url';
+import hbs from 'hbs'
+
 
 const app = express();
-app.use(express.json());
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const templatePath = path.join(__dirname, './templates')
 const port = process.env.PORT || 3000;
+
+app.use(express.json());
+app.set("view engine", "hbs")
+app.set("views", templatePath)
+
+//public website
+app.get("/", (req, res)=>{
+    res.render("login")
+})
+
+app.post("/login", async (req, res)=>{
+
+    const tickets = await Ticket.find({});
+    res.render("dashboard", {tickets: tickets})
+})
 
 //add ticket entry
 app.post("/ticket", async(req, res)=>{
@@ -39,4 +60,3 @@ mongoose.connect('mongodb+srv://admin:ert34563dfgert35@gamblingapi.tnvgjzb.mongo
         .catch((error)=>{
             console.log(error);
         })
-
