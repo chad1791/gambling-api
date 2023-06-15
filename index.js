@@ -22,7 +22,7 @@ app.get("/", (req, res)=>{
 })
 
 app.post("/login", async (req, res)=>{
-    const tickets = await Ticket.find({}).sort('-date').exec((err, docs) => {});
+    const tickets = await Ticket.find({}).sort('-date');
     res.render("dashboard", {tickets: tickets})
 })
 
