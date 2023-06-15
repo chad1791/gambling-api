@@ -4,7 +4,7 @@ import Ticket from './models/ticketmodel.js'
 
 const app = express();
 app.use(express.json());
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 //add ticket entry
 app.post("/ticket", async(req, res)=>{
